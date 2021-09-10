@@ -2,35 +2,35 @@ package ru.job4j.puzzle;
 
 public class Win {
     public static boolean check(int[][] board) {
-        int tempVertical = 0;
-        int tempHorizontal = 0;
-        int countVertical = 0;
-        int countHorizontal = 0;
-        boolean rsl = false;
+        boolean result = false;
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][i] == 1 && (monoHorizontal(board, i) || monoVertical(board, i))) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
 
+    public static boolean monoHorizontal(int[][] board, int row) {
+        boolean result = true;
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                if (board[i][j] == 1) {
-                    tempVertical = j;
-                    tempHorizontal = i;
-                    break;
-                }
+            if (board[row][i] != 1) {
+                result = false;
+                break;
             }
         }
-        for (int i = 0; i < board.length; i++) {
-            if (board[i][tempVertical] == 1) {
-                countVertical++;
-            }
-        }
-        for (int i = 0; i < board.length; i++) {
-            if (board[tempHorizontal][i] == 1) {
-                countHorizontal++;
-            }
-        }
-        if (countHorizontal == 5 || countVertical == 5) {
-            rsl = true;
-        }
+        return result;
+    }
 
-        return rsl;
+    public static boolean monoVertical(int[][] board, int column) {
+        boolean result = true;
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][column] != 1) {
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 }
